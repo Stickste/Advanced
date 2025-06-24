@@ -1,8 +1,8 @@
 from alpaca_trade_api import REST
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 api = REST(
     os.getenv("ALPACA_API_KEY"),
