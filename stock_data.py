@@ -5,14 +5,14 @@ from ta.volatility import BollingerBands
 from finvizfinance.quote import finvizfinance
 from sp500 import fetch_sp500_tickers
 
-def get_short_interest(ticker):
-    try:
-        stock = finvizfinance(ticker)
-        data = stock.ticker_fundament()
-        short_val = data.get("Short Float", "N/A")
-        return short_val
-    except Exception:
-        return "N/A"
+#def get_short_interest(ticker):
+#    try:
+#        stock = finvizfinance(ticker)
+#        data = stock.ticker_fundament()
+#        short_val = data.get("Short Float", "N/A")
+#        return short_val
+#    except Exception:
+#        return "N/A"
 
 
 def get_stock_metrics(ticker):
