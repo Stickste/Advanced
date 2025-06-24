@@ -105,7 +105,7 @@ if __name__ == "__main__":
     for ticker in tickers:
         try:
             metrics = get_stock_metrics(ticker)
-            
+            print(ticker)
             results[ticker] = metrics
         except Exception as e:
             print(f"{ticker} failed: {e}")
