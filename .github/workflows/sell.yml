@@ -1,0 +1,23 @@
+name: Sell Before Close
+
+on:
+  schedule:
+    - cron: '40 20 * * 1-5'  # 3:40 PM EST = 20:40 UTC
+
+jobs:
+  sell:
+    runs-on: ubuntu-latest
+    env:
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run sell-before-close script
+        run: python sell_before_close.py

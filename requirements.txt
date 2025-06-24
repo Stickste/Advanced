@@ -1,0 +1,12 @@
+yfinance
+ta
+openai
+alpaca-trade-api
+requests
+praw
+python-dotenv
+alpha_vantage==2.3.1
+pandas-ta
+numpy==1.24.4
+finvizfinance
+vaderSentiment
