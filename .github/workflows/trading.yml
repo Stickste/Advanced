@@ -3,6 +3,7 @@ name: Daily Overnight Trade
 on:
   schedule:
     - cron: '35 13 * * 1-5'  # 9:35 AM EST = 13:35 UTC
+  workflow_dispatch
 
 jobs:
   run-trade:

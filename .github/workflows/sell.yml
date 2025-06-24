@@ -3,6 +3,7 @@ name: Sell Before Close
 on:
   schedule:
     - cron: '40 20 * * 1-5'  # 3:40 PM EST = 20:40 UTC
+  workflow_dispatch
 
 jobs:
   sell:
