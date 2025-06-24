@@ -1,12 +1,13 @@
+
+import sys
+import os
+
 print("DEBUG-KEYS:")
 print("NEWS_API_KEY:", os.getenv("NEWS_API_KEY"))
 print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 print("REDDIT_CLIENT_ID:", os.getenv("REDDIT_CLIENT_ID"))
 print("ALPACA_API_KEY:", os.getenv("ALPACA_API_KEY"))
 
-
-import sys
-import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 #from dotenv import load_dotenv
