@@ -1,16 +1,9 @@
 import yfinance as yf
-import pandas as pd
 from ta.momentum import RSIIndicator
 from ta.trend import MACD
 from ta.volatility import BollingerBands
 from finvizfinance.quote import finvizfinance
-import requests
-
-def fetch_sp500_tickers() -> list[str]:
-    url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    df = pd.read_html(requests.get(url).text)[0]
-    tickers = df['Symbol'].str.replace('.', '-', regex=False).tolist()
-    return tickers
+from sp500 import fetch_sp500_tickers
 
 def get_short_interest(ticker):
     try:
@@ -96,17 +89,20 @@ def get_stock_metrics(ticker):
     if earnings_date:
         result["earnings"] = earnings_date
 
+    print(ticker)
+
     return result
 
 if __name__ == "__main__":
     tickers = fetch_sp500_tickers()
+    
     print(len(tickers), "Tickers geladen.")
 
     results = {}
     for ticker in tickers:
         try:
             metrics = get_stock_metrics(ticker)
-            print(ticker, metrics)
+            
             results[ticker] = metrics
         except Exception as e:
             print(f"{ticker} failed: {e}")
