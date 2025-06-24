@@ -1,7 +1,7 @@
-yfinance
+yfinance==0.2.28
 ta
 openai
-alpaca-trade-api
+alpaca-trade-api==3.2.0
 requests
 praw
 python-dotenv

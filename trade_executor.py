@@ -1,39 +1,49 @@
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 import alpaca_trade_api as tradeapi
+
 import os
 
 api = tradeapi.REST(
     os.getenv("ALPACA_API_KEY"),
     os.getenv("ALPACA_SECRET_KEY"),
-    base_url="https://paper-api.alpaca.markets"
+    base_url="https://paper-api.alpaca.markets",
+    api_version="v2"
 )
 
 def execute_trade(ticker):
-    # Schritt 1: Kontostand abrufen
-    account = api.get_account()
-    cash = float(account.cash)
-    budget = cash / 3  # Ein Drittel des verfügbaren Bargelds
+    try:
+        account = api.get_account()
+        cash = float(account.cash)
+        budget = cash / 3
 
-    # Schritt 2: Preis der Aktie abrufen
-    last_trade = api.get_latest_trade(ticker)
-    price = float(last_trade.price)
+        try:
+            quote = api.get_latest_quote(ticker)
+            price = float(quote.ask_price)
+            if price <= 0:
+                raise ValueError("Ungültiger Preis")
+        except Exception:
+            price = 1000.0  # Fallback-Wert
+            print(f"[{ticker}] ⚠️ Kein valider Preis – Fallback auf $1000")
 
-    # Schritt 3: Stückzahl berechnen (ganzzahlig)
-    qty = int(budget // price)
-    if qty < 1:
-        print(f"Nicht genug Budget für {ticker}, Preis: {price:.2f}, Budget: {budget:.2f}")
-        return
+        qty = int(budget // price)
+        if qty < 1:
+            print(f"[{ticker}] Nicht genug Budget: Preis={price:.2f}, Budget={budget:.2f}")
+            return
 
-    # Schritt 4: Order ausführen
-    api.submit_order(
-        symbol=ticker,
-        qty=qty,
-        side="buy",
-        type="market",
-        time_in_force="day"
-    )
+        api.submit_order(
+            symbol=ticker,
+            qty=qty,
+            side="buy",
+            type="market",
+            time_in_force="day"
+        )
+        print(f"[{ticker}] ✅ Kaufauftrag platziert: {qty} @ {price:.2f}")
+
+    except Exception as e:
+        print(f"[{ticker}] ❌ Trade fehlgeschlagen: {e}")
+
 
 
 def sell_stock(ticker):
@@ -50,4 +60,5 @@ def get_held_stocks():
     return [position.symbol for position in positions]
 
 if __name__ == "__main__":
-    print("Gehaltene Aktien:", get_held_stocks())
+    execute_trade("TSLA")
+    print(get_held_stocks())

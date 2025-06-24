@@ -94,8 +94,6 @@ def get_stock_metrics(ticker):
     if earnings_date:
         result["earnings"] = earnings_date
 
-    print(ticker)
-
     return result
 
 if __name__ == "__main__":
