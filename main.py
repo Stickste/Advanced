@@ -93,7 +93,7 @@ def main():
     # Schritt 4: Trades ausführen
     for ticker in buy_recommendations:
         try:
-            execute_trade(ticker, action="buy")
+            execute_trade(ticker)
             print(f"Gekauft: {ticker}")
         except Exception as e:
             print(f"Trade fehlgeschlagen für {ticker}: {e}")
