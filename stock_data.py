@@ -2,7 +2,6 @@ import yfinance as yf
 from ta.momentum import RSIIndicator
 from ta.trend import MACD
 from ta.volatility import BollingerBands
-from finvizfinance.quote import finvizfinance
 from sp500 import fetch_sp500_tickers
 
 #def get_short_interest(ticker):
