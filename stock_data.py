@@ -50,13 +50,18 @@ def get_stock_metrics(ticker):
     touch_lower = latest["Close"] <= latest["BB_lower"]
     squeeze = latest["BB_bandwidth"] < df["BB_bandwidth"].rolling(20).mean().iloc[-1] * 0.7
 
-    short_ok = False
-    short_interest_str = get_short_interest(ticker)
-    try:
-        short_val = float(short_interest_str.replace('%', ''))
-        short_ok = short_val > 10
-    except:
-        short_val = None
+    # Sounds good, doesn't work
+    
+    #short_ok = False
+    #short_interest_str = get_short_interest(ticker)
+    #try:
+    #    short_val = float(short_interest_str.replace('%', ''))
+    #    short_ok = short_val > 10
+    #except:
+    #    short_val = None
+
+    short_val=None
+    short_ok=False
 
     # Gruppenzuordnung
     group = 5  # Standardgruppe
@@ -84,8 +89,8 @@ def get_stock_metrics(ticker):
         "group": group,
     }
 
-    if short_ok:
-        result["short_interest"] = short_interest_str
+#    if short_ok:
+#        result["short_interest"] = short_interest_str
     if earnings_date:
         result["earnings"] = earnings_date
 
