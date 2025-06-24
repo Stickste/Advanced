@@ -19,7 +19,10 @@ from reddit_sentiment import get_reddit_sentiment
 def main():
 
     # Schritt 0: Bestehende Positionen verkaufen
-    for ticker in get_held_stocks():
+    helden = get_held_stocks()
+    print("Gehaltene Aktien:", helden)
+
+    for ticker in helden:
         try:
             sell_stock(ticker)
             print(f"Verkauft: {ticker}")
