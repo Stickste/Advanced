@@ -10,3 +10,4 @@ pandas-ta
 numpy==1.24.4
 vaderSentiment
 lxml
+#numpy==2.2.6
